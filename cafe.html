@@ -1,0 +1,84 @@
+<ol>
+    <li>
+        <p onclick="bayar('Makanan1')">Susu kaleng</p>
+    </li>
+    <li>
+        <p onclick="bayar('Makanan2')">Bear brand</p>
+    </li>
+    <ol>
+
+        <div class="stock" id="Makanan1" style="color: red;"></div>
+        <div class="stock" id="Makanan2" style="color: red;"></div>
+
+
+    </ol>
+    <p id="pesanan">pesanan</p>
+    <p id="saldo"></p>
+
+
+    <script>
+        // objek
+        const makanan = {
+            Makanan1: {
+                nama: "SUSU KALENG",
+                harga: 200000,
+                stock: 10,
+            },
+            Makanan2: {
+                nama: "Bear brand",
+                harga: 300000,
+                stock: 20,
+            }
+        }
+        //object
+        var saldo = 5000000
+
+
+
+        // console.log(makanan.Makanan1, makanan.Makanan2);
+
+        document.getElementById('saldo').innerHTML = saldo
+
+        const bayar = (makananKey) => {
+            const makananItem = makanan[makananKey]
+            const jumlah = prompt("masukan jumlah yang anda pesan")
+            const total = makananItem.harga * jumlah
+            if (saldo > total) {
+                if (makananItem.harga > jumlah) {
+                    saldo = saldo - total
+                    document.getElementById('saldo').innerHTML = saldo
+                    stock = makananItem.stock - jumlah
+                    document.getElementById(makananKey).innerHTML = saldo
+                }
+            }
+
+
+
+            if (saldo < total) {
+                alert("Saldo tidak mencukupi");
+
+            } else {
+                if (total > saldo) {
+                    saldo = saldo;
+                    document.getElementById("saldo").innerHTML = saldo;
+                } else {
+                    if (stock <= 0) {
+                        alert("gak ada stock")
+                    }
+                    else {
+                        makananItem.stock = makananItem.stock - jumlah;
+                        document.getElementById(makananKey).innerHTML = makananItem.stock;
+
+                        saldo = saldo - total;
+                        document.getElementById('pesanan').innerHTML = `Anda telah membeli ${makananItem.nama}, dengan harga ${makananItem.harga}, dan total yang harus Anda bayar adalah ${total}`.innerHTML = saldo
+
+                    }
+
+
+                }
+
+
+
+            }
+        }
+    </script>
